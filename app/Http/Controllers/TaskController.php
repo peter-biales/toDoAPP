@@ -26,6 +26,20 @@ class TaskController extends Controller
         ]);
     }
 
+    public function addTask(Request $request) {
+        
+        $data = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+        ]);
+
+        Task::create([
+            'title' => $data['title'],
+            'done' => false,
+        ]);
+
+        return back();
+    }
+
     public function deleteById(Task $task)
     {
         $task->delete();
