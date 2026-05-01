@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
+
+const props = defineProps({
+    tasks: Object
+});
+
+function DeleteTask(id: number) {
+    router.delete(`/delete/${id}`);
+}
 </script>
 
 <template>
@@ -7,6 +15,13 @@ import { Head } from '@inertiajs/vue3';
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </Head>
+    <div v-for="task in tasks" :key="task.id">
+        <span>{{ task.id }}</span>
+        <input type="checkbox" v-model="task.done">
+        <input v-model="task.title" type="text">
+        <!-- <button @click="save">Upraviť</button> -->
+        <button @click="DeleteTask(task.id)">vymazať</button>
+    </div>
     <div
         class="flex min-h-screen flex-col items-center bg-[#FDFDFC] p-6 text-[#1b1b18] lg:justify-center lg:p-8 dark:bg-[#0a0a0a]"
     >
