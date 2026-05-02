@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Head, router, useForm } from '@inertiajs/vue3';
+import taskItem from '@/components/taskItem.vue';
 
 const props = defineProps({
     tasks: Object
@@ -14,10 +15,6 @@ function addTask() {
         onSuccess: () => form.reset(),
     });
 }
-
-function deleteTask(id: number) {
-    router.delete(`/delete/${id}`);
-}
 </script>
 
 <template>
@@ -30,11 +27,7 @@ function deleteTask(id: number) {
         <button @click="addTask">Pridať</button>
     </div>
     <div v-for="task in tasks" :key="task.id">
-        <span>{{ task.id }}</span>
-        <input type="checkbox" v-model="task.done">
-        <input v-model="task.title" type="text">
-        <!-- <button @click="save">Upraviť</button> -->
-        <button @click="deleteTask(task.id)">vymazať</button>
+        <taskItem :task="task"/>
     </div>
     <div
         class="flex min-h-screen flex-col items-center bg-[#FDFDFC] p-6 text-[#1b1b18] lg:justify-center lg:p-8 dark:bg-[#0a0a0a]"
@@ -440,3 +433,18 @@ function deleteTask(id: number) {
         </div>
     </div>
 </template>
+
+<style scoped>
+    button, input[type="text"], input[type="checkbox"], .taskTitle {
+        padding: 4px 8px;
+        border: 1px solid black;
+        margin: 2px 4px;
+    }
+    .taskTitle {
+        border: none;
+    }
+    input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+    }
+</style>

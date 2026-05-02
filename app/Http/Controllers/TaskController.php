@@ -40,6 +40,20 @@ class TaskController extends Controller
         return back();
     }
 
+    public function updateTask(Request $request)
+    {
+        $data = $request->validate([
+            'id' => ['required', 'integer', 'exists:tasks,id'],
+            'title' => ['required', 'string', 'max:255'],
+            'done' => ['boolean'],
+        ]);
+
+        $task = Task::findOrFail($data['id']);
+        $task->update($data);
+
+        return back();
+    }
+
     public function deleteById(Task $task)
     {
         $task->delete();
