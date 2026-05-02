@@ -14,8 +14,9 @@
         <x-inertia::head>
             <title>{{ config('app.name', 'Laravel') }}</title>
         </x-inertia::head>
+        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     </head>
-    <body class="font-sans antialiased">
+    <body class="min-h-screen bg-slate-100 text-slate-900">
         <x-inertia::app />
     </body>
 </html>

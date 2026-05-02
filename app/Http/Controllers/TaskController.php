@@ -8,20 +8,10 @@ use Inertia\Inertia;
 
 class TaskController extends Controller
 {
-    /*public function index()
-    {
-        $task = Task::first();
-
-        return Inertia::render('Welcome', [
-            'task' => $task,
-        ]);
-    }*/
-
-    public function getAllTasks()
-    {
+    public function index() {
         $tasks = Task::all();
 
-        return Inertia::render('Welcome', [
+        return Inertia::render('App', [
             'tasks' => $tasks
         ]);
     }
@@ -40,8 +30,7 @@ class TaskController extends Controller
         return back();
     }
 
-    public function updateTask(Request $request)
-    {
+    public function updateTask(Request $request) {
         $data = $request->validate([
             'id' => ['required', 'integer', 'exists:tasks,id'],
             'title' => ['required', 'string', 'max:255'],
@@ -54,30 +43,20 @@ class TaskController extends Controller
         return back();
     }
 
-    public function deleteById(Task $task)
-    {
+    public function deleteTask(Task $task) {
         $task->delete();
         return back();
     }
 
-    /*public function edit()
-    {
-        $task = Task::first();
-
-        return Inertia::render('Task/Edit', [
-            'task' => $task,
-        ]);
-    }*/
-
-    /*public function update(Request $request)
-    {
+    /*public function deleteTask(Request $request) {
         $data = $request->validate([
+            'id' => ['required', 'integer', 'exists:tasks,id'],
             'title' => ['required', 'string', 'max:255'],
             'done' => ['boolean'],
         ]);
 
-        $task = Task::first();
-        $task->update($data);
+        $task = Task::findOrFail($data['id']);
+        $task->->delete();
 
         return back();
     }*/
